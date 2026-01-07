@@ -1,35 +1,37 @@
-# PromptAttack 欺诈对话检测实验（无外部依赖版本）
+📖 项目简介
+本项目基于对抗攻击研究思想，针对中文欺诈对话检测场景，实现了多种文本扰动方法，以测试和评估简单分类模型的鲁棒性。核心目标是：通过微小的、人类难以察觉的文本修改，使模型产生错误的分类判断。
 
-基于论文《An LLM Can Fool Itself: A Prompt-Based Adversarial Attack》的简化实现，专门针对无法安装复杂Python库的环境设计。
+项目完全基于Python标准库实现，无需安装任何外部依赖，适合快速实验、教学演示和模型安全性初步评估。
 
-## 项目特点
+🎯 核心特点
+特点	说明
+🛡️ 无外部依赖	仅使用Python标准库，无需安装nltk、transformers等复杂包
+⚡ 完全离线	不依赖网络API或预训练模型下载
+📊 实验完整	包含数据加载、模型定义、对抗攻击、结果分析完整流程
+🔬 方法多样	实现字符级、词级、句子级共6种文本扰动策略
+📈 结果可量化	输出攻击成功率、预测改变率、文本相似度等量化指标
+📁 项目结构
 
-✅ **无需安装任何外部Python库** - 仅使用Python标准库
-✅ **完全离线运行** - 不需要网络连接
-✅ **轻量级** - 代码简洁，运行速度快
-✅ **功能完整** - 包含论文核心方法的实现
-
-## 文件结构
 fraud_detection_simple/
-├── config.py # 配置文件
-├── data_loader.py # 数据加载器（无外部依赖）
-├── simple_model.py # 简单分类模型（基于规则）
-├── prompt_attack.py # PromptAttack核心实现（无nltk）
-├── experiment.py # 实验运行器
-├── run_experiment.py # 主运行脚本
-├── create_example_data.py # 创建示例数据
-└── README.md # 说明文档
+├── config.py              # 实验配置文件（参数集中管理）
+├── data_loader.py         # 数据加载与预处理模块（内置示例数据）
+├── simple_model.py        # 基于规则的欺诈对话分类器
+├── prompt_attack.py       # 核心对抗攻击算法（6种扰动方法）
+├── run_optimized.py       # 主实验脚本（推荐从此开始）
+├── README.md              # 项目说明文档
+└── results/               # 实验结果输出目录（运行后自动生成）
 
+🚀 快速开始
+环境要求
+Python 3.6+（无需安装任何额外包）
+至少100MB可用磁盘空间（用于保存实验结果）
 
-## 快速开始
+运行完整实验
+只需一步即可运行完整实验流程：
+python run_optimized.py
 
-### 步骤1：准备环境
-
-1. 确保已安装Python 3.6+
-2. 将上述所有文件保存到同一目录
-3. 不需要安装任何额外的Python包
-
-### 步骤2：创建示例数据
-
-```bash
-python create_example_data.py
+默认会：
+加载内置示例数据集
+训练简单欺诈检测模型
+使用6种扰动方法进行对抗攻击
+生成实验结果报告（保存为optimized_results_xxxsamples.txt）
